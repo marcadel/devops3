@@ -1,24 +1,26 @@
 version: "3"
 
+#services means the containers you want to run 
 services:
-  #MongoDB
   mongo_db:
     container_name: database_container
-    image: mongo:latest
-    restart: always
-    volumes:
-      - mongo_db:/data/db
+    image: mongo:latest 
+    restart: always ##if the container fails it will restart 
+    volumes:  ##we need a volume to store the data incase of container fails the data will be deleted
+      - mongo_db:/data/db  ##default to mongoDB
+  
 
   app:
-    build: .
+    build: . ##this means the current location for the dockerfile 
     ports:
-      - 4000:3000
+      - 4000:3000 ##locally it will run on port 4000 but it will run on port 3000 on the container 
     environment:
-      APP_NAME: LearnDocker
+      APP_NAME: NodeonDocker
       PORT: 3000
-      DB_URI: mongodb://mongo_db:27017/dockerlearn
-    depends_on:
+      DB_URI: mongodb://mongo_db:27017/docker ##the name of the mongodb container
+    depends_on: ##db container must run first before app
       - mongo_db
+
 
 volumes:
   mongo_db: {}

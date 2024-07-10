@@ -1,9 +1,9 @@
 FROM node:alpine
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app 
 COPY ./package.json ./
 COPY ./package-lock.json ./
-RUN npm install
+RUN npm install    
 COPY ./src ./src
 COPY ./.env ./
 COPY ./config.js ./
-CMD ["npm", "start"]
+CMD [ "npm" , "start" ]
